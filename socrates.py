@@ -59,7 +59,7 @@ def run_conversation(api_key, task, max_iterations):
     return dialog_history, summary
 x='Test'
 st.title("Multi-Agent Discussion app implementation playground")
-os.write(1, f"{x}\n".encode()) 
+print(x)
 api_key = st.text_input("Enter your OpenAI API Key", type="password")
 task = st.text_area("Enter the task", height=100)
 max_iterations = st.number_input("Enter the maximum number of iterations", min_value=1, max_value=20, value=10)
