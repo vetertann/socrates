@@ -54,7 +54,7 @@ def run_conversation(api_key, task, max_iterations):
     
     return dialog_history, summary
 
-st.title("OpenAI Conversation App")
+st.title("Multi-Agent Discussion app implementation playground")
 
 api_key = st.text_input("Enter your OpenAI API Key", type="password")
 task = st.text_area("Enter the task", height=100)
@@ -75,4 +75,4 @@ if st.button("Run Conversation"):
             st.text(dialog_history)
 
 st.markdown("---")
-st.markdown("Created with Streamlit and OpenAI")
+st.markdown("by [Ivan Matveev](https://www.linkedin.com/in/ivan-matveev-a9388720/)")
