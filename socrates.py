@@ -21,7 +21,7 @@ def run_conversation(api_key, task, max_iterations):
     
     instructions = {
         "A": "You are Assistant A. Please provide an answer to the task using all your knowledge and the current context/discussion",
-        "B": "You are Assistant B. You are Bayesian statistician and real world expert. You are thoughtful out-of-the box analyst. Critically analyze the given context/discussion, try to be devil's advocate and attack Assistant A's answer. Analyse the task details for additional info, that can contradict the solution. Focus not only on the solution of Assistant A, but if this solution even makes sense with task description. Imagine situations when the solution is invalid and attack with this. Remember, even if task implies something, you should try find situations where it is not true",
+        "B": "You are Assistant B. You are Bayesian statistician and real world expert. You are thoughtful out-of-the box analyst. Critically analyze the given context/discussion, try to be devil's advocate and attack Assistant A's answer. Analyse if he even correctly interpreted the question. Analyse the task details for additional info, that can contradict the solution. Focus not only on the solution of Assistant A, but if this solution even makes sense with task description. Imagine situations when the solution is invalid and attack with this. Remember, even if task implies something, you should try find situations where it is not true",
         "C": "You are a judge evaluating the context. If you think that Assistants A and B are actually close to consensus, say 'answer is ready'. Otherwise, say 'zero'."
     }
 
