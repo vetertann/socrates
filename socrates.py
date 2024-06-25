@@ -50,7 +50,7 @@ def run_conversation(api_key, task, max_iterations):
         
         time.sleep(0.1)  # To prevent rate limiting
 
-    summary_prompt = f"{dialog_history}\nSummarize the answer."
+    summary_prompt = f"{dialog_history}\nSummarize the final answer, without mentioning Assistants in your summary - just the consensus, the result."
     summary = get_response(client, summary_prompt, "A", instructions)
     st.write(f"Task: {task}")
     st.write(f"Summary: {summary}")
