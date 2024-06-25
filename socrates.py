@@ -54,8 +54,7 @@ def run_conversation(api_key, task, max_iterations):
 
     summary_prompt = f"{dialog_history}\nSummarize the final answer, without mentioning Assistants in your summary - just the consensus, the result."
     summary = get_response(client, summary_prompt, "A", instructions)
-    os.write(1, f"Task: {task}\n".encode())
-    os.write(1, f"Summary: {summary}\n".encode())
+    os.write(1,b'Something was executed.\n')
     
     return dialog_history, summary
 
