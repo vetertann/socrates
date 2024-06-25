@@ -3,9 +3,6 @@ from openai import OpenAI
 import time
 
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 def get_response(client, prompt, role, instructions):
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -55,8 +52,8 @@ def run_conversation(api_key, task, max_iterations):
 
     summary_prompt = f"{dialog_history}\nSummarize the answer."
     summary = get_response(client, summary_prompt, "A", instructions)
-    logger.info(f"Task: {task}")
-    logger.info(f"Summary: {summary}")
+    st.write(f"Task: {task}")
+    st.write(f"Summary: {summary}")
     
     return dialog_history, summary
 
