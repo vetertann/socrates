@@ -65,7 +65,7 @@ if st.button("Run Conversation"):
         st.error("Please enter both the API key and the task.")
     else:
         with st.spinner("Running conversation..."):
-            dialog_history, summary = run_conversation(api_key, task, max_iterations)
+            dialog_history, summary = run_conversation(api_key, "Task:" + task, max_iterations)
         
         st.subheader("Summary")
         st.write(summary)
