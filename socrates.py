@@ -2,10 +2,8 @@ import streamlit as st
 from openai import OpenAI
 import os
 import time
+import tiktoken
 
-
-
-    
 def get_response(client, prompt, role, instructions):
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -16,7 +14,12 @@ def get_response(client, prompt, role, instructions):
     )
     return response.choices[0].message.content
 
-def run_conversation(api_key, task, max_iterations):
+def count_tokens(text):
+    enc = tiktoken.encoding_for_model("gpt-4o")
+    tokens = enc.encode(text)
+    return len(tokens)
+
+def run_conversation(api_key, task, max_iterations, max_tokens):
     client = OpenAI(api_key=api_key)
     
     instructions = {
@@ -38,9 +41,15 @@ def run_conversation(api_key, task, max_iterations):
         answer_A = get_response(client, context, "A", instructions)
         dialog_history += f"\nAssistant A: {answer_A}"
         
+        if count_tokens(dialog_history) > max_tokens:
+            break
+        
         context = f"{task}\nAssistant A: {answer_A}"
         answer_B = get_response(client, context, "B", instructions)
         dialog_history += f"\nAssistant B: {answer_B}"
+        
+        if count_tokens(dialog_history) > max_tokens:
+            break
         
         context = f"{task}\nAssistant A: {answer_A}\nAssistant B: {answer_B}"
         evaluation_C = get_response(client, context, "C", instructions)
@@ -63,13 +72,14 @@ st.title("Multi-Agent Discussion app implementation playground")
 api_key = st.text_input("Enter your OpenAI API Key", type="password")
 task = st.text_area("Enter the task", height=100)
 max_iterations = st.number_input("Enter the maximum number of iterations", min_value=1, max_value=20, value=10)
+max_tokens = st.number_input("Enter the maximum number of tokens", min_value=100, max_value=50000, value=5000)
 
 if st.button("Run Conversation"):
     if not api_key or not task:
         st.error("Please enter both the API key and the task.")
     else:
         with st.spinner("Running conversation..."):
-            dialog_history, summary = run_conversation(api_key, "Task:" + task, max_iterations)
+            dialog_history, summary = run_conversation(api_key, "Task:" + task, max_iterations, max_tokens)
         
         st.subheader("Summary")
         st.write(summary)
